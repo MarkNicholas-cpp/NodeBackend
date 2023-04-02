@@ -1,12 +1,16 @@
 const express = require('express');
-const app = express();
 const bodyparser = require('body-parser');
 const cors = require('cors');
-const Route = require('./Routes/Routes');
+const Students = require('./Routes/Students');
+const Teachers = require('./Routes/Teachers')
+const app = express();
 app.use(cors());
 app.use(bodyparser.urlencoded({ extended :  true}));
 app.use(bodyparser.json());
-app.use('/', Route)
+app.use('/Students', Students);
+app.use('/Teachers', Teachers);
+
+
 
 
 
