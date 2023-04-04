@@ -8,7 +8,7 @@ Router.post("/Insert", (req, res) => {
   console.log(Details);
   Result("Students", "Insert", Details)
     .then((result) => {
-      res.send(result.Message);
+      res.send(result);
       console.log(result);
     })
     .catch((err) => {
