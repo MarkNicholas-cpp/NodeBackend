@@ -12,18 +12,18 @@ Router.post("/Insert", (req, res) => {
       console.log(result);
     })
     .catch((err) => {
-      res.send(err.message);
+      res.send(err);
     });
 });
 Router.delete("/Delete:ID", (req, res) => {
   let Details = req.params.ID;
   Result("Students", "Delete", Details)
     .then((result) => {
-      res.send(result.Message);
+      res.send(result);
       console.log(result);
     })
     .catch((err) => {
-      res.send(err.message);
+      res.send(err);
     });
 });
 Router.put("/Update:ID", (req, res) => {
@@ -33,11 +33,11 @@ Router.put("/Update:ID", (req, res) => {
   console.log(Details);
   Result("Students", "Update", Details, UpdatedDetails)
     .then((result) => {
-      res.send(result.Message);
+      res.send(result);
       console.log(result);
     })
     .catch((err) => {
-      res.send(err.message);
+      res.send(err);
     });
 });
 Router.get("/Read:_ID", (req, res) => {
@@ -48,7 +48,7 @@ Router.get("/Read:_ID", (req, res) => {
       console.log(result);
     })
     .catch((err) => {
-      res.send(err.message);
+      res.send(err);
     });
 });
 

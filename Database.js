@@ -14,7 +14,7 @@ const Query = async (sql) => {
     await connection.commit();
     return result;
   } catch (error) {
-    console.error(error);
+    return (error);
   } finally {
     if (connection) {
       try {
@@ -28,31 +28,26 @@ const Query = async (sql) => {
 
 const Result = async (...Parameters) => {
   
-  let Sql, Message;
+  let Sql;
   console.log(typeof (Parameters[2]));
   Details = Parameters[2];
-  if(typeof Parameters[2] === 'string') {
-    Details = eval(`(${Parameters[2]})`); 
-  }
+    try{
+      Details = eval(`(${Parameters[2]})`);
+    } catch(err){}
  switch (Parameters[1]) {
     case "Insert":
       Sql = `insert into ${Parameters[0]} values('${Details.RollNumber}','${Details.Name}')`;
-      Message = "Inserted Successfully";
       break;
     case "Update":
-      Sql = `update ${Parameters[0]} set RollNumber = '${Parameters[3].RollNumber}', Name = '${Parameters[3].Name}' where RollNumber = '${Details.RollNumber}'`;
-      Message = `Succes Updating from ${Details.RollNumber, Details.Name} to ${Parameters[3].RollNumber, Parameters[3].Name}`;
+      Sql = `update ${Parameters[0]} set RollNumber = '${Parameters[3].RollNumber}', Name = '${Parameters[3].Name}' where RollNumber = '${Details}'`;
       break;
     case "Delete":
-      Sql = `delete from ${Parameters[0]} where RollNumber = '${Details.RollNumber}'`;
-      Message = `Success deleting ${Details.RollNumber}`;
+      Sql = `delete from ${Parameters[0]} where RollNumber = '${Details}'`;
       break;
     case "Read":
         Sql = `select * from ${Parameters[0]}`;
-        Message = `Showing all the values in the database ${Parameters[0]}`;
-        if(Details.RollNumber){
-          Sql = `select * from ${Parameters[0]} where RollNumber = '${Details.RollNumber}'`;
-          Message = `${Details.RollNumber} Retrived`
+        if(Details != "All"){
+          Sql = `select * from ${Parameters[0]} where RollNumber = '${Details}'`;
         }
       break;
     default:
@@ -61,7 +56,6 @@ const Result = async (...Parameters) => {
   }
   console.log(Sql);
   var result = await Query(Sql);
-  result.Message = Message;
   return result;
 };
 module.exports = Result;
